@@ -20,10 +20,17 @@ def play():
         win = "That was a costly mistake..."
     return slot1+":"+slot2+":"+slot3+" "+win
 
-print(play())
-
-alert('Do you want to try again? Remember, high risk, high reward. ')
-
-if "Yes"
+# edit below
+# made this a while loop which is different than a for loop because it can 
+# go on forever!  
+#
+# https://docs.python.org/3/reference/compound_stmts.html#while
+#
+# First see if they want to play
+playAgain = input("Do you want to try? Remember, high risk, high reward.")
+# then play until they don't type "yes"
+while (playAgain == "yes"):
     print(play())
- else alert("Better luck next time!")
+    playAgain = input("Do you want to try again? Remember, high risk, high reward.")
+# this statement runs when they don't type "yes"
+print("Better luck next time!")
