@@ -5,7 +5,7 @@ slotsPossible = ["bar","bar","bar","bar","bar","cherry","crown","crown","bar","b
 cashAmount = 100
 from random import *
 
-def play():
+def play(wager):
 
     slot1=choice(slotsPossible)
     slot2=choice(slotsPossible)
@@ -14,19 +14,25 @@ def play():
     # using the global keyword so that it can use my cashAmount variable above
     # if this isn't used, it throws an error, thinking that cashAmount hasn't been defined yet
     global cashAmount
+
+    #cost of playing
+    cashAmount -= wager
     
     # this sets the default response output for when the outcome is NOT a winning combination
     win = "Thanks for your money."
     
     if (slot1==slot2==slot3=="cherry"):
-        win = "You win $1000"
-        cashAmount = cashAmount + 1000
+        amountWon = wager * 10
+        win = "You win $" + str(amountWon) 
+        cashAmount += amountWon
     elif (slot1==slot2==slot3=="crown"):
-        win = "You win $500"
-        cashAmount = cashAmount + 500
+        amountWon = wager * 5
+        win = "You win $" + str(amountWon) 
+        cashAmount += amountWon
     elif (slot1==slot2==slot3=="bar"):
-        win = "You win $50"
-        cashAmount = cashAmount + 50
+        amountWon = wager * 2
+        win = "You win $" + str(amountWon) 
+        cashAmount += amountWon
     elif (slot1==slot2==slot3=="skull"):
         win = "That was a costly mistake..."
         cashAmount = 0
@@ -34,14 +40,17 @@ def play():
 
 # First see if they want to play
 playAgain = input("Do you want to try?  It only costs $10 to play...Remember: high risk, high reward.")
+wagerAmount = input("You have $" + str(cashAmount) + " remaining. How much would you like to wager?")
+print(play(int(wagerAmount)))
 
 # then play until they don't type "yes"
 # Info on while loops (used below): https://docs.python.org/3/reference/compound_stmts.html#while
 while (playAgain in ("yes","Yes","YES","Y","y")):
-    cashAmount = cashAmount - 10
-    print(play())
     print("You now have", cashAmount, "dollars remaining. Choose wisely.")
     playAgain = input("Do you want to try again? Remember, high risk, high reward.")
+    wagerAmount = input("You have $" + str(cashAmount) + " remaining. How much would you like to wager?")
+    print(play(int(wagerAmount)))
 
 # this statement runs when they don't type "yes"
 print("Better luck next time!")
+
