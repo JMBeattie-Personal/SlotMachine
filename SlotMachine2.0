@@ -1,5 +1,7 @@
 print("Let's play some slots! But, be warned, one false spin could cost more than you care to wager...")
 slotsPossible = ["bar","bar","bar","bar","bar","cherry","crown","crown","bar","bar","cherry","crown","skull"]
+# adding in a starting cash amount so that we can add/subtract based on results of slot machine "spin"
+cashAmount = 100
 from random import *
 
 def play():
@@ -9,15 +11,20 @@ def play():
     slot3=choice(slotsPossible)
 
     win = "Thanks for your money."
-
+    
     if (slot1==slot2==slot3=="cherry"):
         win = "You win $1000"
-    if (slot1==slot2==slot3=="crown"):
+        #cashAmount = cashAmount + 1000
+        #Before the above will work, I need to figure out how to get cashAmount to reference the global cashAmount defined at the start of this code...
+    elif (slot1==slot2==slot3=="crown"):
         win = "You win $500"
-    if (slot1==slot2==slot3=="bar"):
+        #cashAmount = cashAmount + 500
+    elif (slot1==slot2==slot3=="bar"):
         win = "You win $50"
-    if (slot1==slot2==slot3=="skull"):
+        #cashAmount = cashAmount + 50
+    elif (slot1==slot2==slot3=="skull"):
         win = "That was a costly mistake..."
+        #cashAmount = 0
     return slot1+":"+slot2+":"+slot3+" "+win
 
 # edit below
@@ -27,10 +34,12 @@ def play():
 # https://docs.python.org/3/reference/compound_stmts.html#while
 #
 # First see if they want to play
-playAgain = input("Do you want to try? Remember, high risk, high reward.")
+playAgain = input("Do you want to try? Remember: high risk, high reward.")
 # then play until they don't type "yes"
-while (playAgain == "yes"):
+while (playAgain in ("yes","Yes","YES","Y","y")):
+    cashAmount = cashAmount - 10
     print(play())
+    print("You now have", cashAmount, "dollars remaining. Choose wisely.")
     playAgain = input("Do you want to try again? Remember, high risk, high reward.")
 # this statement runs when they don't type "yes"
 print("Better luck next time!")
